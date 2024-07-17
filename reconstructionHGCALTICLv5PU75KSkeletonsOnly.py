@@ -459,7 +459,7 @@ for i, p in enumerate(params):
     setattr(process, "layerClusterToSimTracksterAssociation", cms.EDProducer("LCToTSAssociatorProducer",
         layer_clusters = cms.InputTag("hgcalMergeLayerClusters"),
         mightGet = cms.optional.untracked.vstring,
-        tracksters = cms.InputTag("ticlSimTracksters")
+        tracksters = cms.InputTag("ticlSimTracksters", "fromCPs")
         )
     )
     setattr(process, "layerClusterToTracksterMergeAssociation" + str(i), cms.EDProducer("LCToTSAssociatorProducer",

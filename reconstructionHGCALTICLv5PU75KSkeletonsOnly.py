@@ -102,7 +102,8 @@ process.source = cms.Source("PoolSource",
                     'file:/data/user/wredjeb/Optimizer/subSet/step3_385_33.root'
                     ]
                             ),
-                            secondaryFileNames=cms.untracked.vstring()
+                            secondaryFileNames=cms.untracked.vstring(),
+                            skipEvents = cms.untracked.uint32(0)
                             )
 
 process.options = cms.untracked.PSet(
@@ -251,31 +252,31 @@ for i, p in enumerate(params):
     ),
     pluginPatternRecognitionByCLUE3D=cms.PSet(
           algo_verbosity=cms.int32(0),
-          criticalDensity=cms.vdouble(v[0], v[1], v[2]),
-          criticalEtaPhiDistance=cms.vdouble(0.025, 0.025, 0.025),
-          criticalSelfDensity=cms.vdouble(v[3], v[4], v[5]),
-          criticalXYDistance=cms.vdouble(v[6], v[7], v[8]),
-          criticalZDistanceLyr=cms.vint32(int(v[9]), int(v[10]), int(v[11])),
-          cutHadProb=cms.double(0.5),
-          densityEtaPhiDistanceSqr=cms.vdouble(0.0008, 0.0008, 0.0008),
-          densityOnSameLayer=cms.bool(False),
-          densitySiblingLayers=cms.vint32(int(v[12]), int(v[13]), int(v[14])),
-          densityXYDistanceSqr=cms.vdouble(v[15], v[16], v[17]),
-          doPidCut=cms.bool(False),
-          eid_input_name=cms.string('input'),
-          eid_min_cluster_energy=cms.double(1),
-          eid_n_clusters=cms.int32(10),
-          eid_n_layers=cms.int32(50),
-          eid_output_name_energy=cms.string('output/regressed_energy'),
-          eid_output_name_id=cms.string('output/id_probabilities'),
-          kernelDensityFactor=cms.vdouble(v[18], v[19], v[20]),
-          minNumLayerCluster=cms.vint32(int(v[21]), int(v[22]), int(v[23])),
-          nearestHigherOnSameLayer=cms.bool(False),
-          outlierMultiplier=cms.vdouble(v[24], v[25], v[26]),
-          rescaleDensityByZ=cms.bool(False),
-          type=cms.string('CLUE3D'),
-          useAbsoluteProjectiveScale=cms.bool(True),
-          useClusterDimensionXY=cms.bool(False)
+            criticalDensity = cms.vdouble(0.6, p[0], p[1]),
+            criticalEtaPhiDistance = cms.vdouble(0.025, 0.025, 0.025),
+            criticalSelfDensity = cms.vdouble(0.15, p[2], p[3]),
+            criticalXYDistance = cms.vdouble(1.8, p[4], 0.15),
+            criticalZDistanceLyr = cms.vint32(5, int(p[5]), int(p[6])),
+            cutHadProb = cms.double(0.5),
+            densityEtaPhiDistanceSqr = cms.vdouble(0.0008, 0.0008, 0.0008),
+            densityOnSameLayer = cms.bool(False),
+            densitySiblingLayers = cms.vint32(3, int(p[7]), int(p[8])),
+            densityXYDistanceSqr = cms.vdouble(3.24, p[9], p[10]),
+            doPidCut = cms.bool(False),
+            eid_input_name = cms.string('input'),
+            eid_min_cluster_energy = cms.double(1),
+            eid_n_clusters = cms.int32(10),
+            eid_n_layers = cms.int32(50),
+            eid_output_name_energy = cms.string('output/regressed_energy'),
+            eid_output_name_id = cms.string('output/id_probabilities'),
+            kernelDensityFactor = cms.vdouble(0.2, p[11], p[12]),
+            minNumLayerCluster = cms.vint32(2, 2, 2),
+            nearestHigherOnSameLayer = cms.bool(False),
+            outlierMultiplier = cms.vdouble(2, p[13], p[14]),
+            rescaleDensityByZ = cms.bool(False),
+            type = cms.string('CLUE3D'),
+            useAbsoluteProjectiveScale = cms.bool(True),
+            useClusterDimensionXY = cms.bool(False)
       ),
     pluginPatternRecognitionByFastJet=cms.PSet(
       algo_verbosity=cms.int32(0),
@@ -357,18 +358,18 @@ for i, p in enumerate(params):
         ),
         type = cms.string('CA')
       ),
-      pluginPatternRecognitionByCLUE3D = cms.PSet(
-            algo_verbosity = cms.int32(0),
-            criticalDensity = cms.vdouble(0.6, v[0], v[1]),
+    pluginPatternRecognitionByCLUE3D=cms.PSet(
+          algo_verbosity=cms.int32(0),
+            criticalDensity = cms.vdouble(0.6, p[0], p[1]),
             criticalEtaPhiDistance = cms.vdouble(0.025, 0.025, 0.025),
-            criticalSelfDensity = cms.vdouble(0.15, v[2], v[3]),
-            criticalXYDistance = cms.vdouble(1.8, v[4], v[5]),
-            criticalZDistanceLyr = cms.vint32(5, int(v[6]), int(v[7])),
+            criticalSelfDensity = cms.vdouble(0.15, p[2], p[3]),
+            criticalXYDistance = cms.vdouble(1.8, p[4], 0.15),
+            criticalZDistanceLyr = cms.vint32(5, int(p[5]), int(p[6])),
             cutHadProb = cms.double(0.5),
             densityEtaPhiDistanceSqr = cms.vdouble(0.0008, 0.0008, 0.0008),
             densityOnSameLayer = cms.bool(False),
-            densitySiblingLayers = cms.vint32(3, int(v[8]), int(v[9])),
-            densityXYDistanceSqr = cms.vdouble(3.24, v[10], v[11]),
+            densitySiblingLayers = cms.vint32(3, int(p[7]), int(p[8])),
+            densityXYDistanceSqr = cms.vdouble(3.24, p[9], p[10]),
             doPidCut = cms.bool(False),
             eid_input_name = cms.string('input'),
             eid_min_cluster_energy = cms.double(1),
@@ -376,15 +377,15 @@ for i, p in enumerate(params):
             eid_n_layers = cms.int32(50),
             eid_output_name_energy = cms.string('output/regressed_energy'),
             eid_output_name_id = cms.string('output/id_probabilities'),
-            kernelDensityFactor = cms.vdouble(0.2, v[12], v[13]),
-            minNumLayerCluster = cms.vint32(2, int(v[14]), int(v[15])),
+            kernelDensityFactor = cms.vdouble(0.2, p[11], p[12]),
+            minNumLayerCluster = cms.vint32(2, 2, 2),
             nearestHigherOnSameLayer = cms.bool(False),
-            outlierMultiplier = cms.vdouble(2, v[16], v[17]),
+            outlierMultiplier = cms.vdouble(2, p[13], p[14]),
             rescaleDensityByZ = cms.bool(False),
             type = cms.string('CLUE3D'),
             useAbsoluteProjectiveScale = cms.bool(True),
             useClusterDimensionXY = cms.bool(False)
-        ),
+      ),
       pluginPatternRecognitionByFastJet = cms.PSet(
         algo_verbosity = cms.int32(0),
         antikt_radius = cms.double(0.09),
@@ -410,8 +411,8 @@ for i, p in enumerate(params):
     setattr(process, 'mergedTrackstersProducer' + str(i), cms.EDProducer("TracksterLinksProducer",
           linkingPSet = cms.PSet(
             track_time_quality_threshold = cms.double(0.5),
-            wind = cms.double(4),
-            min_num_lcs = cms.uint32(7),
+            wind = cms.double(8),
+            min_num_lcs = cms.uint32(10),
             min_trackster_energy = cms.double(10),
             pca_quality_th = cms.double(0.85),
             dot_prod_th = cms.double(0.97),
@@ -480,7 +481,7 @@ for i, p in enumerate(params):
       	layerClusters = cms.InputTag("hgcalMergeLayerClusters"),
       	mightGet = cms.optional.untracked.vstring,
       	simTracksterMap = cms.InputTag("layerClusterToSimTracksterAssociation"),
-      	simTracksters = cms.InputTag("ticlSimTracksters"),
+      	simTracksters = cms.InputTag("ticlSimTracksters", "fromCPs"),
       	tracksterMap = cms.InputTag("layerClusterToTracksterMergeAssociation" + str(i)),
       	tracksters = cms.InputTag("ticlTrackstersCLUE3D" + str(i))
       	)
@@ -489,7 +490,7 @@ for i, p in enumerate(params):
       	layerClusters = cms.InputTag("hgcalMergeLayerClusters"),
       	mightGet = cms.optional.untracked.vstring,
       	simTracksterMap = cms.InputTag("layerClusterToSimTracksterAssociation"),
-      	simTracksters = cms.InputTag("ticlSimTracksters"),
+      	simTracksters = cms.InputTag("ticlSimTracksters", "fromCPs"),
       	tracksterMap = cms.InputTag("layerClusterToTracksterMergeAssociation" + str(i)),
       	tracksters = cms.InputTag("mergedTrackstersProducer" + str(i))
       	)
@@ -548,7 +549,7 @@ for t in taskSimpleValidation:
 process.schedule = cms.Schedule(process.TICL, process.TICLValidation,  process.consume_step)
 
 process.options.wantSummary = True
-process.options.numberOfThreads =  16 
+process.options.numberOfThreads =  4 
 process.options.numberOfStreams = 0 
 
 process=setCrossingFrameOn(process)

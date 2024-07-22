@@ -12,8 +12,8 @@ def get_metrics(uproot_file, id):
     number_of_sim_eff = tree['number_of_sim_eff'].array()[0]
     number_of_eff = tree['number_of_eff'].array()[0]
  
-
-    return [total_recC3D/number_of_sim, number_of_fake / total_recMerged, 1 - number_of_eff/number_of_sim_eff] 
+    print([total_recC3D/number_of_sim, number_of_fake / total_recMerged])
+    return [total_recC3D/number_of_sim, number_of_fake / total_recMerged]
 
 # read a csv file, return a matrix
 def read_csv(filename):

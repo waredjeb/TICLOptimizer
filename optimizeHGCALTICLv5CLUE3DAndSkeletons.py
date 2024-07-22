@@ -33,7 +33,6 @@ defaults = []
 for p in defaults:
     print(f"{p:.18f}", end=',')
 config = 'reconstructionHGCALTICLv5PU75KSkeletonsOnly.py'
-input_file = 'step3.root'
 
 # configure parameters
 critical_density_lb = [0.4,0.4]
@@ -74,6 +73,7 @@ ub.extend(kernel_density_fac_ub)
 ub.extend(outlier_mul_ub)
 
 working_dir = 'PSOTICLv5CLUE3D'
+
 def reco_and_validate(params):
     if not os.path.exists(working_dir):
         os.mkdir(working_dir)

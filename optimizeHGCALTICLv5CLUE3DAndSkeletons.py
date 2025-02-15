@@ -32,45 +32,7 @@ defaults = []
 
 for p in defaults:
     print(f"{p:.18f}", end=',')
-config = 'reconstructionHGCALTICLv5PU75KSkeletonsOnly.py'
-
-# configure parameters
-critical_density_lb = [0.4,0.4]
-critical_density_ub = [1.2,1.2]
-critical_self_density_lb = [0.01, 0.01]
-critical_self_density_ub = [0.3, 0.3]
-critical_xy_distance_lb = [1.]
-critical_xy_distance_ub = [2.5]
-critical_z_distance_lb = [4, 4]
-critical_z_distance_ub = [7, 7]
-density_sibling_lay_lb = [2,2]
-density_sibling_lay_ub = [5,5]
-density_xydist_lay_lb = [2.0,2.0]
-density_xydist_lay_ub = [4.0,4.0]
-kernel_density_fac_lb = [0.1, 0.1]
-kernel_density_fac_ub = [0.5, 0.5]
-outlier_mul_lb = [1., 1.]
-outlier_mul_ub = [2., 2.]
-
-lb = []
-lb.extend(critical_density_lb)
-lb.extend(critical_self_density_lb)
-lb.extend(critical_xy_distance_lb)
-lb.extend(critical_z_distance_lb)
-lb.extend(density_sibling_lay_lb)
-lb.extend(density_xydist_lay_lb)
-lb.extend(kernel_density_fac_lb)
-lb.extend(outlier_mul_lb)
-
-ub = []
-ub.extend(critical_density_ub)
-ub.extend(critical_self_density_ub)
-ub.extend(critical_xy_distance_ub)
-ub.extend(critical_z_distance_ub)
-ub.extend(density_sibling_lay_ub)
-ub.extend(density_xydist_lay_ub)
-ub.extend(kernel_density_fac_ub)
-ub.extend(outlier_mul_ub)
+config = 'reconstructionTICLv5.py'
 
 working_dir = 'PSOTICLv5CLUE3D'
 
@@ -87,11 +49,52 @@ def reco_and_validate(params):
     with uproot.open(validation_result) as uproot_file:
         #print(f"Get Metric {get_metrics(uproot_file,0)}")
         population_fitness = np.array(
-            [get_metrics(uproot_file, i) for i in range(num_particles)], dtype = float)
-#    print(f" Pop fitness {population_fitness}, {params}")
+                [get_metrics(uproot_file, i) for i in range(num_particles)], dtype = float)
+        print(f" Pop fitness {population_fitness}, {params}")
     return population_fitness
 
+cylinder_radius_sqrEM_ub = 12.0 
+cylinder_radius_sqrHAD_ub = 15.0
+cylinder_radius_sqrEM_lb = 6.0 
+cylinder_radius_sqrHAD_lb = 9.0
+cylinder_radius_sqr_split_ub = 9.0
+cylinder_radius_sqr_split_lb = 6.0 
+deltaRxy_ub = 10.0
+deltaRxy_lb = 2.0
+dot_prod_th_ub = 0.98
+dot_prod_th_lb = 0.90
+lower_boundaryEM_ub = 30 
+lower_boundaryHAD_ub = 30
+lower_boundaryEM_lb = 10
+lower_boundaryHAD_lb = 10
+lower_distance_projective_sqrEM_ub = 40
+lower_distance_projective_sqrHAD_ub = 40
+lower_distance_projective_sqrEM_lb = 20
+lower_distance_projective_sqrHAD_lb = 20
+lower_distance_projective_sqr_closest_pointsEM_ub = 60
+lower_distance_projective_sqr_closest_pointsHAD_ub = 60
+lower_distance_projective_sqr_closest_pointsEM_lb = 20
+lower_distance_projective_sqr_closest_pointsHAD_lb = 20
+min_num_lcs_ub = 15
+min_num_lcs_lb = 7 
+min_trackster_energy_ub = 20
+min_trackster_energy_lb = 5 
+upper_boundaryEM_ub = 200
+upper_boundaryHAD_ub = 200 
+upper_boundaryEM_lb = 100 
+upper_boundaryHAD_lb = 100
+upper_distance_projective_sqrEM_ub = 40
+upper_distance_projective_sqrHAD_ub = 70
+upper_distance_projective_sqrEM_lb = 30
+upper_distance_projective_sqrHAD_lb = 30
 
+ub = [cylinder_radius_sqrEM_ub, cylinder_radius_sqrHAD_ub, cylinder_radius_sqr_split_ub, deltaRxy_ub, dot_prod_th_ub, lower_boundaryEM_ub, lower_boundaryHAD_ub, lower_distance_projective_sqrEM_ub, lower_distance_projective_sqrHAD_ub, lower_distance_projective_sqr_closest_pointsEM_ub, lower_distance_projective_sqr_closest_pointsHAD_ub, min_num_lcs_ub, min_trackster_energy_ub, upper_boundaryEM_ub, upper_boundaryHAD_ub, upper_distance_projective_sqrEM_ub, upper_distance_projective_sqrHAD_ub] 
+lb = [cylinder_radius_sqrEM_lb, cylinder_radius_sqrHAD_lb, cylinder_radius_sqr_split_lb, deltaRxy_lb, dot_prod_th_lb, lower_boundaryEM_lb, lower_boundaryHAD_lb, lower_distance_projective_sqrEM_lb, lower_distance_projective_sqrHAD_lb, lower_distance_projective_sqr_closest_pointsEM_lb, lower_distance_projective_sqr_closest_pointsHAD_lb, min_num_lcs_lb, min_trackster_energy_lb, upper_boundaryEM_lb, upper_boundaryHAD_lb, upper_distance_projective_sqrEM_lb, upper_distance_projective_sqrHAD_lb ] 
+
+
+for i in range(len(ub)):
+    if(ub[i] <= lb[i]):
+        print(ub[i], lb[i], i)
 # get default metrics
 if args.default:
     defaults = [0.6,0.6,0.15,0.15,1.8,5,5,3,3,3.24,3.24,0.2,0.2,2.0,2.0]
